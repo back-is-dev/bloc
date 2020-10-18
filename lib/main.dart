@@ -7,15 +7,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
- 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-       
         primarySwatch: Colors.blue,
-    
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -26,8 +23,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
-
-
   final String title;
 
   @override
@@ -36,7 +31,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final counterBloc = CounterBloc();
-
+  @override
+  void dispose() {
+    CounterBloc().dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 stream: counterBloc.counterStream,
                 initialData: 0,
                 builder: (context, snapshot) {
-                  
                   return Text(
                     '${snapshot.data}',
                     style: Theme.of(context).textTheme.headline4,

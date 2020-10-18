@@ -27,11 +27,16 @@ class CounterBloc {
       else if (event == CounterAction.Decrement) {
         if (counter <= 0) {
           counter = 0;
-        }else counter--;
+        } else
+          counter--;
       } else if (event == CounterAction.Reset) counter = 0;
 
       counterSink.add(counter);
     });
   }
-  
+  void dispose() {
+    _stateStreamController.close();
+    _eventStreamController.close();
+  }
+
 }
